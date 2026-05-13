@@ -3,11 +3,13 @@ import baileysPkg from "@whiskeysockets/baileys";
 
 // Baileys ships as CJS — named imports may be undefined in ESM mode.
 // Always destructure from the default export for reliability.
-const { initAuthCreds, BufferJSON, proto } = baileysPkg;
+const initAuthCreds = baileysPkg.default?.initAuthCreds || baileysPkg.initAuthCreds;
+const BufferJSON = baileysPkg.default?.BufferJSON || baileysPkg.BufferJSON;
+const proto = baileysPkg.default?.proto || baileysPkg.proto;
 
 if (!BufferJSON || !initAuthCreds) {
   throw new Error(
-    "Baileys did not expose BufferJSON/initAuthCreds — check @whiskeysockets/baileys version"
+    `Baileys exports missing. Got BufferJSON: ${!!BufferJSON}, initAuthCreds: ${!!initAuthCreds}. Check @whiskeysockets/baileys version.`
   );
 }
 

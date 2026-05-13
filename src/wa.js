@@ -1,6 +1,7 @@
 import baileysPkg from "@whiskeysockets/baileys";
-const makeWASocket = baileysPkg.default || baileysPkg.makeWASocket || baileysPkg;
-const { DisconnectReason, fetchLatestBaileysVersion } = baileysPkg;
+const makeWASocket = baileysPkg.default?.default || baileysPkg.default || baileysPkg.makeWASocket || baileysPkg;
+const DisconnectReason = baileysPkg.default?.DisconnectReason || baileysPkg.DisconnectReason;
+const fetchLatestBaileysVersion = baileysPkg.default?.fetchLatestBaileysVersion || baileysPkg.fetchLatestBaileysVersion;
 import { Boom } from "@hapi/boom";
 import QRCode from "qrcode";
 import pino from "pino";
