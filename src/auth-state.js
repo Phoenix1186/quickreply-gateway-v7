@@ -1,15 +1,13 @@
 import { pool } from "./db.js";
-import baileysPkg from "@whiskeysockets/baileys";
+import { createRequire } from "node:module";
 
-// Baileys ships as CJS — named imports may be undefined in ESM mode.
-// Always destructure from the default export for reliability.
-const initAuthCreds = baileysPkg.default?.initAuthCreds || baileysPkg.initAuthCreds;
-const BufferJSON = baileysPkg.default?.BufferJSON || baileysPkg.BufferJSON;
-const proto = baileysPkg.default?.proto || baileysPkg.proto;
+const require = createRequire(import.meta.url);
+const baileys = require("@whiskeysockets/baileys");
+const { initAuthCreds, BufferJSON, proto } = baileys;
 
-if (!BufferJSON || !initAuthCreds) {
+if (!BufferJSON?.reviver || !BufferJSON?.replacer || !initAuthCreds || !proto?.Message?.AppStateSyncKeyData) {
   throw new Error(
-    `Baileys exports missing. Got BufferJSON: ${!!BufferJSON}, initAuthCreds: ${!!initAuthCreds}. Check @whiskeysockets/baileys version.`
+    `Baileys auth exports unavailable. Installed keys: ${Object.keys(baileys).slice(0, 40).join(", ")}`
   );
 }
 

@@ -1,14 +1,18 @@
 {
   "name": "quickreply-gateway",
-  "version": "7.0.0",
+  "version": "8.0.0",
   "type": "module",
   "main": "src/server.js",
   "scripts": {
-    "start": "node src/server.js"
+    "start": "node src/server.js",
+    "smoke": "node src/smoke-test.js"
+  },
+  "engines": {
+    "node": ">=20 <23"
   },
   "dependencies": {
     "@hapi/boom": "^10.0.1",
-    "@whiskeysockets/baileys": "^6.7.9",
+    "@whiskeysockets/baileys": "6.7.9",
     "express": "^4.21.2",
     "pg": "^8.13.1",
     "pino": "^9.5.0",

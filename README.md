@@ -1,8 +1,9 @@
-# QuickReply Gateway v7
+# QuickReply Gateway v8
 
-Fixes:
-- "Cannot read properties of undefined (reading 'reviver')" — Baileys is CJS, so we now destructure BufferJSON / initAuthCreds from the default export.
-- Same fix applied to makeWASocket / DisconnectReason.
+Fixes Railway startup crash:
+- Uses Node `createRequire()` for Baileys, because `import default from "@whiskeysockets/baileys"` returns only the socket function in Node ESM and does not expose `BufferJSON` / `initAuthCreds`.
+- Pins `@whiskeysockets/baileys` to `6.7.9` so deploys do not silently change import behavior.
+- Keeps Postgres-backed auth storage, QR pairing, phone-number pairing code, inbound webhook, and outbound test send.
 
 ## Env
 DATABASE_URL=postgres://...

@@ -1,7 +1,8 @@
-import baileysPkg from "@whiskeysockets/baileys";
-const makeWASocket = baileysPkg.default?.default || baileysPkg.default || baileysPkg.makeWASocket || baileysPkg;
-const DisconnectReason = baileysPkg.default?.DisconnectReason || baileysPkg.DisconnectReason;
-const fetchLatestBaileysVersion = baileysPkg.default?.fetchLatestBaileysVersion || baileysPkg.fetchLatestBaileysVersion;
+import { createRequire } from "node:module";
+const require = createRequire(import.meta.url);
+const baileys = require("@whiskeysockets/baileys");
+const makeWASocket = baileys.default || baileys.makeWASocket || baileys;
+const { DisconnectReason, fetchLatestBaileysVersion } = baileys;
 import { Boom } from "@hapi/boom";
 import QRCode from "qrcode";
 import pino from "pino";
@@ -60,7 +61,7 @@ export async function startSession(userId, opts = {}) {
     auth: auth.state,
     logger,
     printQRInTerminal: false,
-    browser: ["QuickReply", "Chrome", "6.0.0"],
+    browser: ["QuickReply", "Chrome", "8.0.0"],
     syncFullHistory: false,
     markOnlineOnConnect: false,
     generateHighQualityLinkPreview: false,

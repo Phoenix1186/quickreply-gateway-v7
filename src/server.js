@@ -21,7 +21,7 @@ function auth(req, res, next) {
   next();
 }
 
-app.get("/", (_req, res) => res.json({ ok: true, name: "quickreply-gateway", version: "7.0.0" }));
+app.get("/", (_req, res) => res.json({ ok: true, name: "quickreply-gateway", version: "8.0.0" }));
 app.get("/health", (_req, res) => res.json({ ok: true }));
 
 app.post("/sessions/:userId/start", auth, async (req, res) => {
@@ -72,7 +72,7 @@ const PORT = process.env.PORT || 3000;
 initDb()
   .then(() => {
     app.listen(PORT, () => {
-      console.log(JSON.stringify({ msg: "gateway_started", port: String(PORT), version: "7.0.0" }));
+      console.log(JSON.stringify({ msg: "gateway_started", port: String(PORT), version: "8.0.0" }));
     });
   })
   .catch((e) => {
