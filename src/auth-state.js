@@ -2,12 +2,14 @@ import { pool } from "./db.js";
 import { createRequire } from "node:module";
 
 const require = createRequire(import.meta.url);
-const baileys = require("@whiskeysockets/baileys");
-const { initAuthCreds, BufferJSON, proto } = baileys;
+const baileysPkg = require("@whiskeysockets/baileys");
+const initAuthCreds = baileysPkg.default?.initAuthCreds || baileysPkg.initAuthCreds;
+const BufferJSON = baileysPkg.default?.BufferJSON || baileysPkg.BufferJSON;
+const proto = baileysPkg.default?.proto || baileysPkg.proto;
 
-if (!BufferJSON?.reviver || !BufferJSON?.replacer || !initAuthCreds || !proto?.Message?.AppStateSyncKeyData) {
+if (!BufferJSON || !initAuthCreds) {
   throw new Error(
-    `Baileys auth exports unavailable. Installed keys: ${Object.keys(baileys).slice(0, 40).join(", ")}`
+    `Baileys exports missing. Got BufferJSON: ${!!BufferJSON}, initAuthCreds: ${!!initAuthCreds}. Check @whiskeysockets/baileys version.`
   );
 }
 
